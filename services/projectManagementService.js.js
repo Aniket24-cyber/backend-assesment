@@ -56,9 +56,8 @@ class ProductManagementService {
       }
     } catch (error) {
       request.status = RequestStatus.FAILED; 
+      request.failed_reason = error.message;
       await request.save(); 
-  
-      this.handleError(error, 'Failed to process images'); 
     }
   }
   

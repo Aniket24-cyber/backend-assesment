@@ -8,6 +8,7 @@ const productSchema = new Schema({
     required: true,
     enum: Object.values(RequestStatus), 
   },
+  failed_reason:{type : String},
   productData: [{
     productName: String,
     inputUrls: [String],

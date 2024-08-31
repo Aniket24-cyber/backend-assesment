@@ -5,7 +5,7 @@ import { join, resolve } from 'path';
 import tmp from 'tmp';
 import logger from '../helpers/logger.js';
 import { CustomError } from '../helpers/customError.js';
-import ErrorTypes from '../constants/constants.js';
+import {ErrorTypes} from '../constants/constants.js';
 
 class ImageProcessingService {
 
