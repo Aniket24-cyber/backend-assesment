@@ -70,33 +70,10 @@ class ImageProcessingService {
     }
   }
 
-  getFileSizeInMB(filePath) {
-    try {
-      const { size } = statSync(filePath); 
-      return (size / (1024 * 1024)).toFixed(4); 
-    } catch (error) {
-      this.handleError(error, 'Failed to get file size');
-    }
-  }
-
   async compressImage(inputPath, outputPath) {
     try {
-      const originalSizeMB = this.getFileSizeInMB(inputPath);
-      logger.info(`Original image size for ${inputPath}: ${originalSizeMB} MB`);
-
       const image = await Jimp.read(inputPath);
       await image.quality(50).writeAsync(outputPath);
-
-      const compressedSizeMB = this.getFileSizeInMB(outputPath);
-      logger.info(`Compressed image size for ${outputPath}: ${compressedSizeMB} MB`);
-
-      const sizeReductionPercentage = ((originalSizeMB - compressedSizeMB) / originalSizeMB * 100).toFixed(2);
-      logger.info(`Size reduction: ${sizeReductionPercentage}%`);
-
-      if (sizeReductionPercentage > 10) { 
-        logger.warn(`Size reduction is greater than expected: ${sizeReductionPercentage}%`);
-      }
-
     } catch (error) {
       this.handleError(error, 'Failed to compress image');
     }
